@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" autowire="byType">
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL82Dialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+
+        <property name="mappingResources">
+            <list>
+                <value>
+                    /model/customer.xml
+                </value>
+                <value>
+                    /model/detail_transaction.xml
+                </value>
+                <value>
+                    /model/header_transaction.xml
+                </value>
+                <value>
+                    /model/item.xml
+                </value>
+                <value>
+                    /model/laundry_service.xml
+                </value>
+                <value>
+                    /model/member.xml
+                </value>
+                <value>
+                    /model/membership.xml
+                </value>
+                <value>
+                    /model/profile.xml
+                </value>
+                <value>
+                    /model/return_transaction.xml
+                </value>
+                <value>
+                    /model/role.xml
+                </value>
+                <value>
+                    /model/user.xml
+                </value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager" autowire="byType"/>
+
+    <bean id="transactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate" autowire="constructor"/>
+
+</beans>

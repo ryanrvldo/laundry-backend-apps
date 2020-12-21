@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="customerDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.CustomerDaoImpl"
+          autowire="byType"/>
+    <bean id="detailTransactionDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.DetailTransactionDaoImpl"
+          autowire="byType"/>
+    <bean id="headerTransactionDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.HeaderTransactionDaoImpl"
+          autowire="byType"/>
+    <bean id="itemDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.ItemDaoImpl"
+          autowire="byType"/>
+    <bean id="laundryServiceDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.ItemServiceDaoImpl"
+          autowire="byType"/>
+    <bean id="memberDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.MemberDaoImpl"
+          autowire="byType"/>
+    <bean id="membershipDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.MembershipDaoImpl"
+          autowire="byType"/>
+    <bean id="profileDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.ProfileDaoImpl"
+          autowire="byType"/>
+    <bean id="returnTransactionDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.ReturnTransactionDaoImpl"
+          autowire="byType"/>
+    <bean id="roleDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.RoleDaoImpl"
+          autowire="byType"/>
+    <bean id="userDao"
+          class="com.lawencon.laundry.dao.hibernate.nativeImpl.UserDaoImpl"
+          autowire="byType"/>
+
+</beans>

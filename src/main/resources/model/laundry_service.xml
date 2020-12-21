@@ -1,0 +1,23 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.lawencon.laundry.entity.ItemService" table="tb_m_laundry_service">
+        <id name="id">
+            <generator class="identity"/>
+        </id>
+        <property name="code" not-null="true" length="50"/>
+        <property name="name">
+            <column name="service_name" not-null="true" length="100"/>
+        </property>
+        <property name="cost" not-null="true"/>
+        <property name="hourDuration">
+            <column name="hour_duration" not-null="true"/>
+        </property>
+
+    </class>
+
+</hibernate-mapping>

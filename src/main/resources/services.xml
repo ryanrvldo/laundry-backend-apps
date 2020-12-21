@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="itemService"
+          class="com.lawencon.laundry.service.impl.ItemServiceImpl"
+          autowire="constructor"/>
+    <bean id="laundryCategoryService"
+          class="com.lawencon.laundry.service.impl.ItemSrvServiceImpl"
+          autowire="constructor"/>
+    <bean id="laundryTransactionService"
+          class="com.lawencon.laundry.service.impl.LaundryTransactionServiceImpl"
+          autowire="constructor"/>
+    <bean id="memberService"
+          class="com.lawencon.laundry.service.impl.MemberServiceImpl"
+          autowire="constructor"/>
+    <bean id="membershipService"
+          class="com.lawencon.laundry.service.impl.MembershipServiceImpl"
+          autowire="constructor"/>
+    <bean id="userService"
+          class="com.lawencon.laundry.service.impl.UserServiceImpl"
+          autowire="constructor"/>
+
+</beans>

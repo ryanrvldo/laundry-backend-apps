@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="mainView"
+          class="com.lawencon.laundry.view.MainView"
+          autowire="constructor"/>
+
+    <!--  Admin  -->
+    <bean id="adminView"
+          class="com.lawencon.laundry.view.admin.AdminView"
+          autowire="constructor"/>
+    <bean id="addItemView"
+          class="com.lawencon.laundry.view.admin.AddItemView"
+          autowire="constructor"/>
+    <bean id="addLaundryServiceView"
+          class="com.lawencon.laundry.view.admin.AddLaundryServiceView"
+          autowire="constructor"/>
+    <bean id="addMembershipView"
+          class="com.lawencon.laundry.view.admin.AddMembershipView"
+          autowire="constructor"/>
+    <bean id="addMemberView"
+          class="com.lawencon.laundry.view.admin.AddMemberView"
+          autowire="constructor"/>
+    <bean id="addUserView"
+          class="com.lawencon.laundry.view.admin.AddUserView"
+          autowire="constructor"/>
+
+    <!--  Cashier  -->
+    <bean id="cashierView"
+          class="com.lawencon.laundry.view.cashier.CashierView"
+          autowire="constructor"/>
+    <bean id="addLaundryView"
+          class="com.lawencon.laundry.view.cashier.AddLaundryView"
+          autowire="constructor"/>
+
+</beans>

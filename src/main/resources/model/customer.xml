@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.lawencon.laundry.entity.Customer" table="tb_m_customer">
+        <id name="id">
+            <generator class="identity"/>
+        </id>
+        <many-to-one name="profile" class="com.lawencon.laundry.entity.Profile" lazy="false">
+            <column name="profile_id" not-null="true" unique="true"/>
+        </many-to-one>
+        <property name="createdDate">
+            <column name="created_date" not-null="true"/>
+        </property>
+    </class>
+
+</hibernate-mapping>

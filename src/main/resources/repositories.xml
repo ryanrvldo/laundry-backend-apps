@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="customerRepository"
+          class="com.lawencon.laundry.repository.impl.CustomerRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="detailTransactionRepository"
+          class="com.lawencon.laundry.repository.impl.DetailTransactionRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="headerTransactionRepository"
+          class="com.lawencon.laundry.repository.impl.HeaderTransactionRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="itemRepository"
+          class="com.lawencon.laundry.repository.impl.ItemRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="laundryServiceRepository"
+          class="com.lawencon.laundry.repository.impl.LaundryServiceRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="memberRepository"
+          class="com.lawencon.laundry.repository.impl.MemberRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="membershipRepository"
+          class="com.lawencon.laundry.repository.impl.MembershipRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="profileRepository"
+          class="com.lawencon.laundry.repository.impl.ProfileRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="returnTransactionRepository"
+          class="com.lawencon.laundry.repository.impl.ReturnTransactionRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="roleRepository"
+          class="com.lawencon.laundry.repository.impl.RoleRepositoryImpl"
+          autowire="constructor"/>
+    <bean id="userRepository"
+          class="com.lawencon.laundry.repository.impl.UserRepositoryImpl"
+          autowire="constructor"/>
+
+</beans>
