@@ -3,87 +3,123 @@ package com.lawencon.laundry.entity;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_r_hdr_transaction")
+@JsonInclude(content = Include.NON_NULL)
+@JsonIgnoreProperties(allowSetters = true, value = { "hibernateLazyInitializer" })
 public class HeaderTransaction {
 
-	private Long id;
-	private String receiptNumber;
-	private Customer customer;
-	private LocalDateTime startDate;
-	private BigDecimal totalCost;
-	private Double totalWeight;
-	private User user;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public HeaderTransaction() {
-	}
+  @Column(name = "receipt_number", nullable = false, unique = true)
+  private String receiptNumber;
 
-	public HeaderTransaction(Long id, String receiptNumber, Customer customer, LocalDateTime startDate,
-	                         BigDecimal totalCost, Double totalWeight, User user) {
-		this.id = id;
-		this.receiptNumber = receiptNumber;
-		this.customer = customer;
-		this.startDate = startDate;
-		this.totalCost = totalCost;
-		this.totalWeight = totalWeight;
-		this.user = user;
-	}
+  @Column(name = "start_date", nullable = false)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  private LocalDateTime startDate;
 
-	public Long getId() {
-		return id;
-	}
+  @Column(name = "total_cost")
+  private BigDecimal totalCost;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @Column(name = "total_weight")
+  private Double totalWeight;
 
-	public String getReceiptNumber() {
-		return receiptNumber;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "customer_id", nullable = false)
+  private Customer customer;
 
-	public void setReceiptNumber(String receiptNumber) {
-		this.receiptNumber = receiptNumber;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
-	public Customer getCustomer() {
-		return customer;
-	}
+  public HeaderTransaction() {
+  }
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+  public HeaderTransaction(Long id, String receiptNumber, LocalDateTime startDate, BigDecimal totalCost,
+      Double totalWeight, Customer customer, User user) {
+	this.id = id;
+	this.receiptNumber = receiptNumber;
+	this.startDate = startDate;
+	this.totalCost = totalCost;
+	this.totalWeight = totalWeight;
+	this.customer = customer;
+	this.user = user;
+  }
 
-	public LocalDateTime getStartDate() {
-		return startDate;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public void setStartDate(LocalDateTime startDate) {
-		this.startDate = startDate;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public BigDecimal getTotalCost() {
-		return totalCost;
-	}
+  public String getReceiptNumber() {
+	return receiptNumber;
+  }
 
-	public void setTotalCost(BigDecimal totalCost) {
-		this.totalCost = totalCost;
-	}
+  public void setReceiptNumber(String receiptNumber) {
+	this.receiptNumber = receiptNumber;
+  }
 
-	public User getUser() {
-		return user;
-	}
+  public Customer getCustomer() {
+	return customer;
+  }
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+  public void setCustomer(Customer customer) {
+	this.customer = customer;
+  }
 
-	public Double getTotalWeight() {
-		return totalWeight;
-	}
+  public LocalDateTime getStartDate() {
+	return startDate;
+  }
 
-	public void setTotalWeight(Double totalWeight) {
-		this.totalWeight = totalWeight;
-	}
+  public void setStartDate(LocalDateTime startDate) {
+	this.startDate = startDate;
+  }
+
+  public BigDecimal getTotalCost() {
+	return totalCost;
+  }
+
+  public void setTotalCost(BigDecimal totalCost) {
+	this.totalCost = totalCost;
+  }
+
+  public Double getTotalWeight() {
+	return totalWeight;
+  }
+
+  public void setTotalWeight(Double totalWeight) {
+	this.totalWeight = totalWeight;
+  }
+
+  public User getUser() {
+	return user;
+  }
+
+  public void setUser(User user) {
+	this.user = user;
+  }
 
 }

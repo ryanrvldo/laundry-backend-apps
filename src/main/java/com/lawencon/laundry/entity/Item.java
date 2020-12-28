@@ -1,54 +1,85 @@
 package com.lawencon.laundry.entity;
 
+import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_m_item")
+@JsonInclude(value = Include.NON_NULL)
+@JsonIgnoreProperties(allowSetters = true, value = { "hibernateLazyInitializer" })
 public class Item {
 
-	private Long id;
-	private String code;
-	private String name;
-	private ItemService itemService;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Item() {
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "item_id", nullable = false)
+  private ItemDetails itemDetails;
 
-	public Item(Long id, String code, String name, ItemService itemService) {
-		this.id = id;
-		this.code = code;
-		this.name = name;
-		this.itemService = itemService;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "service_id", nullable = false)
+  private Services services;
 
-	public Long getId() {
-		return id;
-	}
+  @Column(nullable = false)
+  private BigDecimal cost;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public Item() {
+  }
 
-	public String getCode() {
-		return code;
-	}
+  public Item(Long id, ItemDetails itemDetails, Services services, BigDecimal cost) {
+	this.id = id;
+	this.itemDetails = itemDetails;
+	this.services = services;
+	this.cost = cost;
+  }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public ItemDetails getItemDetails() {
+	return itemDetails;
+  }
 
-	public ItemService getItemService() {
-		return itemService;
-	}
+  public void setItemDetails(ItemDetails itemDetails) {
+	this.itemDetails = itemDetails;
+  }
 
-	public void setItemService(ItemService itemService) {
-		this.itemService = itemService;
-	}
+  public Services getServices() {
+	return services;
+  }
+
+  public void setServices(Services services) {
+	this.services = services;
+  }
+
+  public BigDecimal getCost() {
+	return cost;
+  }
+
+  public void setCost(BigDecimal cost) {
+	this.cost = cost;
+  }
+
 }

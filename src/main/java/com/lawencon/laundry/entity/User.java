@@ -1,74 +1,105 @@
 package com.lawencon.laundry.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_m_user")
+@JsonInclude(value = Include.NON_NULL)
+@JsonIgnoreProperties(allowSetters = true, value = { "hibernateLazyInitializer", "password" })
 public class User {
 
-	private Long id;
-	private String username;
-	private String password;
-	private Profile profile;
-	private Role role;
-	private Boolean isActive;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public User() {
-	}
+  @Column(nullable = false, unique = true)
+  private String username;
 
-	public User(Long id, String username, String password, Profile profile, Role role, Boolean isActive) {
-		this.id = id;
-		this.username = username;
-		this.password = password;
-		this.profile = profile;
-		this.role = role;
-		this.isActive = isActive;
-	}
+  @Column(nullable = false)
+  private String password;
 
-	public Long getId() {
-		return id;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "profile_id")
+  private Profile profile;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "role_id")
+  private Role role;
 
-	public String getUsername() {
-		return username;
-	}
+  private Boolean isActive = true;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+  public User() {
+  }
 
-	public String getPassword() {
-		return password;
-	}
+  public User(Long id, String username, String password, Profile profile, Role role, Boolean isActive) {
+	this.id = id;
+	this.username = username;
+	this.password = password;
+	this.profile = profile;
+	this.role = role;
+	this.isActive = isActive;
+  }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public Profile getProfile() {
-		return profile;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
+  public String getUsername() {
+	return username;
+  }
 
-	public Role getRole() {
-		return role;
-	}
+  public void setUsername(String username) {
+	this.username = username;
+  }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+  public String getPassword() {
+	return password;
+  }
 
-	public Boolean getIsActive() {
-		return isActive;
-	}
+  public void setPassword(String password) {
+	this.password = password;
+  }
 
-	public void setIsActive(Boolean active) {
-		isActive = active;
-	}
+  public Profile getProfile() {
+	return profile;
+  }
+
+  public void setProfile(Profile profile) {
+	this.profile = profile;
+  }
+
+  public Role getRole() {
+	return role;
+  }
+
+  public void setRole(Role role) {
+	this.role = role;
+  }
+
+  public Boolean getIsActive() {
+	return isActive;
+  }
+
+  public void setIsActive(Boolean active) {
+	isActive = active;
+  }
 }

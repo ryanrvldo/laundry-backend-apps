@@ -1,22 +1,13 @@
 package com.lawencon.laundry;
 
-import com.lawencon.laundry.view.MainView;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-/**
- * @author Rian Rivaldo
- */
+@SpringBootApplication
 public class LaundryApplication {
 
-	public static void main(String[] args) {
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("main.xml");
-		MainView mainView = context.getBean("mainView", MainView.class);
-		mainView.show(() -> {
-			System.out.println("Thank you! See you again.");
-			context.close();
-			System.exit(1);
-		});
-	}
+  public static void main(String[] args) {
+	SpringApplication.run(LaundryApplication.class, args);
+  }
 
 }

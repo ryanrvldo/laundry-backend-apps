@@ -1,60 +1,85 @@
 package com.lawencon.laundry.service.impl;
 
-import com.lawencon.laundry.entity.Item;
-import com.lawencon.laundry.entity.ItemService;
-import com.lawencon.laundry.repository.ItemRepository;
-import com.lawencon.laundry.repository.LaundryServiceRepository;
-import org.springframework.transaction.support.TransactionTemplate;
-
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import com.lawencon.laundry.dao.ItemDao;
+import com.lawencon.laundry.entity.Item;
+import com.lawencon.laundry.entity.ItemDetails;
+import com.lawencon.laundry.entity.Services;
+import com.lawencon.laundry.service.ItemDetailsService;
+import com.lawencon.laundry.service.ItemService;
+import com.lawencon.laundry.service.ItemServicesService;
+import com.lawencon.laundry.util.ValidationUtils;
 
 /**
  * @author Rian Rivaldo
  */
-public class ItemServiceImpl implements com.lawencon.laundry.service.ItemService {
+@Service
+public class ItemServiceImpl implements ItemService {
 
-	private final TransactionTemplate transactionTemplate;
-	private final LaundryServiceRepository laundryServiceRepository;
-	private final ItemRepository itemRepository;
+  @Autowired
+  private ValidationUtils validationUtils;
 
-	public ItemServiceImpl(TransactionTemplate transactionTemplate, LaundryServiceRepository laundryServiceRepository, ItemRepository itemRepository) {
-		this.transactionTemplate = transactionTemplate;
-		this.laundryServiceRepository = laundryServiceRepository;
-		this.itemRepository = itemRepository;
+  @Autowired
+  @Qualifier("item-jpa")
+  private ItemDao itemDao;
+
+  @Autowired
+  private ItemDetailsService detailService;
+
+  @Autowired
+  private ItemServicesService itemServicesService;
+
+  @Override
+  public void createItem(Item item) throws Exception {
+	validateItem(item);
+	itemDao.insert(item);
+  }
+
+  @Transactional
+  @Override
+  public void updateItem(Item item) throws Exception {
+	validateItem(item);
+	itemDao.update(item);
+  }
+
+  @Transactional
+  @Override
+  public void deleteItemById(Long id) throws Exception {
+	Item item = getItemById(id);
+	itemDao.delete(item);
+  }
+
+  @Override
+  public List<Item> getAll() throws Exception {
+	List<Item> itemList = itemDao.findAll();
+	if (itemList.isEmpty()) {
+	  throw new NullPointerException("Item data is empty.");
 	}
+	return itemList;
+  }
 
-	@Override
-	public ItemService checkLaundryService(String code) throws Exception {
-		Optional.ofNullable(code)
-				.orElseThrow(() -> new Exception("Service code must be not empty"));
-		return transactionTemplate.execute(val -> {
-			ItemService itemService = new ItemService();
-			itemService.setCode(code);
-			try {
-				return Optional.ofNullable(laundryServiceRepository.get(itemService))
-						.orElseThrow(() -> new RuntimeException("Invalid service code."));
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		});
-	}
+  @Override
+  public Item getItemById(Long id) throws Exception {
+	return validationUtils.validateEntityId(id, () -> itemDao.findById(id));
+  }
 
-	@Override
-	public void addAllItem(List<Item> items) throws Exception {
-		if (items.isEmpty()) {
-			throw new Exception("Item list is empty!");
-		}
-
-		transactionTemplate.executeWithoutResult(val -> {
-			for (Item item : items) {
-				try {
-					itemRepository.add(item);
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
-			}
-		});
-	}
+  private void validateItem(Item item) throws Exception {
+	Objects.requireNonNull(item, () -> "Item data must be submitted.");
+	Objects.requireNonNull(item.getItemDetails().getCode(), () -> "Item detail data must be submitted.");
+	Objects.requireNonNull(item.getServices().getCode(), () -> "Item service data must be submitted.");
+	Objects.requireNonNull(item.getCost(), () -> "Item cost data must be submitted.");
+	ItemDetails details = detailService.getItemDetailsByCode(item.getItemDetails().getCode());
+	Services service = itemServicesService.getServiceByCode(item.getServices().getCode());
+	item.setItemDetails(details);
+	item.setServices(service);
+  }
 
 }

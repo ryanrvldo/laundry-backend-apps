@@ -1,54 +1,75 @@
 package com.lawencon.laundry.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_m_membership")
+@JsonInclude(content = Include.NON_NULL)
 public class Membership {
 
-	private Long id;
-	private String code;
-	private String name;
-	private Double discount;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Membership() {
-	}
+  @Column(length = 10, nullable = false, unique = true)
+  private String code;
 
-	public Membership(Long id, String code, String name, Double discount) {
-		this.id = id;
-		this.code = code;
-		this.name = name;
-		this.discount = discount;
-	}
+  @Column(name = "membership_name", length = 50, nullable = false, unique = true)
+  private String name;
 
-	public Long getId() {
-		return id;
-	}
+  @Column(nullable = false)
+  private Double discount;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public Membership() {
+  }
 
-	public String getCode() {
-		return code;
-	}
+  public Membership(Long id, String code, String name, Double discount) {
+	this.id = id;
+	this.code = code;
+	this.name = name;
+	this.discount = discount;
+  }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public String getName() {
-		return name;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public String getCode() {
+	return code;
+  }
 
-	public Double getDiscount() {
-		return discount;
-	}
+  public void setCode(String code) {
+	this.code = code;
+  }
 
-	public void setDiscount(Double discount) {
-		this.discount = discount;
-	}
+  public String getName() {
+	return name;
+  }
+
+  public void setName(String name) {
+	this.name = name;
+  }
+
+  public Double getDiscount() {
+	return discount;
+  }
+
+  public void setDiscount(Double discount) {
+	this.discount = discount;
+  }
 }

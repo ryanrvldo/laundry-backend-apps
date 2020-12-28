@@ -1,6 +1,7 @@
 package com.lawencon.laundry.service;
 
-import com.lawencon.laundry.entity.Role;
+import java.util.List;
+
 import com.lawencon.laundry.entity.User;
 
 /**
@@ -8,12 +9,20 @@ import com.lawencon.laundry.entity.User;
  */
 public interface UserService {
 
-	void checkAdminIsExist() throws Exception;
+  void createUser(User user) throws Exception;
 
-	Role validateLogin(User user) throws Exception;
+  User getUserByUsername(String username) throws Exception;
 
-	Role getRole(Role role) throws Exception;
+  User getUserById(Long id) throws Exception;
 
-	void addNewUser(User user) throws Exception;
+  List<User> getAllUser() throws Exception;
+
+  void updateUser(User user) throws Exception;
+
+  void updateUserActiveStatus(User user) throws Exception;
+
+  void updateUserPassword(User user) throws Exception;
+
+  void deleteUserById(Long id) throws Exception;
 
 }

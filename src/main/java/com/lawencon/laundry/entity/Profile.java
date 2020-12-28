@@ -1,65 +1,87 @@
 package com.lawencon.laundry.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  * @author Rian Rivaldo
  */
+@Entity
+@Table(name = "tb_m_profile")
+@JsonInclude(value = Include.NON_NULL)
 public class Profile {
 
-	private Long id;
-	private String fullName;
-	private String phone;
-	private String email;
-	private String address;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	public Profile() {
-	}
+  @Column(name = "full_name", nullable = false)
+  private String fullName;
 
-	public Profile(Long id, String fullName, String phone, String email, String address) {
-		this.id = id;
-		this.fullName = fullName;
-		this.phone = phone;
-		this.email = email;
-		this.address = address;
-	}
+  @Column(length = 50, nullable = false, unique = true)
+  private String phone;
 
-	public Long getId() {
-		return id;
-	}
+  @Column(nullable = false, unique = true)
+  private String email;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  private String address;
 
-	public String getFullName() {
-		return fullName;
-	}
+  public Profile() {
+  }
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+  public Profile(Long id, String fullName, String phone, String email, String address) {
+	this.id = id;
+	this.fullName = fullName;
+	this.phone = phone;
+	this.email = email;
+	this.address = address;
+  }
 
-	public String getPhone() {
-		return phone;
-	}
+  public Long getId() {
+	return id;
+  }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+  public void setId(Long id) {
+	this.id = id;
+  }
 
-	public String getEmail() {
-		return email;
-	}
+  public String getFullName() {
+	return fullName;
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  public void setFullName(String fullName) {
+	this.fullName = fullName;
+  }
 
-	public String getAddress() {
-		return address;
-	}
+  public String getPhone() {
+	return phone;
+  }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+  public void setPhone(String phone) {
+	this.phone = phone;
+  }
+
+  public String getEmail() {
+	return email;
+  }
+
+  public void setEmail(String email) {
+	this.email = email;
+  }
+
+  public String getAddress() {
+	return address;
+  }
+
+  public void setAddress(String address) {
+	this.address = address;
+  }
 
 }
